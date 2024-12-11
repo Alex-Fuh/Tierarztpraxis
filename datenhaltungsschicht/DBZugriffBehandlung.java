@@ -3,18 +3,18 @@ package datenhaltungsschicht;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import logikschicht.Besitzer;
+import logikschicht.Behandlung;
 
-public class DBZugriffBesitzer extends DBZugriff {
+public class DBZugriffBehandlung extends DBZugriff {
 
     private static ResultSet datenmenge;
 
-    public static boolean insert(Besitzer besitzer) throws Exception {
+    public static boolean insert(Behandlung behandlung) throws Exception {
         connect();
-        String insertCommand = "INSERT INTO Besitzer (Nachname, Vorname, Straße, Hausnummer, PLZ, Stadt, Telefonnummer) VALUES ("
-                + "'" + besitzer.getBesitzerNachname() + "', '" + besitzer.getBesitzerVorname() + "', '"
-                + besitzer.getBesitzerStrasse() + "', '" + besitzer.getPlz() + "', '"
-                + besitzer.getStadt() + "', '" + besitzer.getTelefonnummer() + "')";
+        String insertCommand = "INSERT INTO Behandlung (behandlungsID, tierID, tierarztID, datum, diagnose, behandlungskosten, behandlungsart, zahlungsstatus, rechnungsdatum) VALUES ("
+                + "'" + behandlung.getBehandlungsID() + "', '" + behandlung.getTierID() + "', '"
+                + behandlung.getTierarztID() + "', '" + behandlung.getDatum() + "', '"
+                + behandlung.getDiagnose() + "', '" + behandlung.getBehandlungskosten() + "' , '" + behandlung.getBehandlungsart() + "' , '" + behandlung.getZahlungsstatus() + "' , '" + behandlung.getRechnungsdatum();
 
         try {
             befehl.executeUpdate(insertCommand);

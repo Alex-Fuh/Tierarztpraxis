@@ -22,7 +22,8 @@ public class Besitzerverwaltung {
                 if (existingBesitzer.getBesitzerID().equals(besitzer.getBesitzerID())) {
                     existingBesitzer.setBesitzerNachname(besitzer.getBesitzerNachname());
                     existingBesitzer.setBesitzerVorname(besitzer.getBesitzerVorname());
-                    existingBesitzer.setStrasseHausnummer(besitzer.getStrasseHausnummer());
+                    existingBesitzer.sethausnummer(besitzer.getHausnummer());
+                    existingBesitzer.setStrasse(besitzer.getStrasse());
                     existingBesitzer.setPlz(besitzer.getPlz());
                     existingBesitzer.setStadt(besitzer.getStadt());
                     existingBesitzer.setTelefonnummer(besitzer.getTelefonnummer());

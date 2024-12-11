@@ -1,0 +1,125 @@
+ackage datenhaltungsschicht;
+
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import logikschicht.Medikament;
+
+public class DBZugriffMedikament extends DBZugriff {
+
+    private static ResultSet datenmenge;
+
+    public static boolean insert(Medikament medikament) throws Exception {
+        connect();
+        String insertCommand = "INSERT INTO Medikament (Medikament_Name, Wirkstoff, Kosten_pro_Einheit)"
+                + ", '" +medikament.getMedikamentMedikament_Name() + ", '" + medikament.getMedikamentWirkstoff() + ", '"
+                +medikament.getMedikamentKosten_pro_Einheit();
+
+        try {
+            befehl.executeUpdate(insertCommand);
+        } catch (SQLExeption ex) {
+            String errorMessage = "Fehler beim Himzufügen des Medikaments " + medikament.getMedikamentID() + "aufgetreten.";
+            Logger.logError(ex);
+            throw new Exception(errorMessage);
+        }
+        Logger.logCommand(insertCommand);
+
+        close();
+        return true;
+    }
+
+    public static boolean update(Medikament medikament) throws Exception{
+        connect();
+        String updateCommand = "UPDATE Medikament SET Medikament_Name  = '" + medikament.getMedikamentMedikament_Name() + "Wirkstoff = " + medikament.getMedikamentWirkstoff() + 
+        "Kosten_pro_Einheit ='" + medikament.getMedikamentKosten_pro_Einheit;
+        try{
+                befehl.executeUpdae(updateCommand); 
+        }catch(SQLException ex){
+            String errorMessage = "Es ist ein Fehler beim aktualisieren des Medikaments" + medikament.getMedikamentID() + "aufgetreten";
+            Logger.logError(ex);
+        }
+    }
+    
+
+    public static boolean delete(Medikament medikament) {
+        connect();
+        String deleteCommand = "DELETE FROM Medikament WHERE MedikamentID = " + medikament.getMedikamentID();
+
+        try {
+            befehl.executeUpdate(deleteCommand);
+        } catch (SQLException ex) {
+            String errorMessage = " Fehler beim Löschen des Medikaments  " + medikament.getMedikamentID() + "aufgetreten.";
+            Logger.logError(ex);
+            throw new Exception(errorMessage);
+        }
+        Logger.logCommand(deleteCommand);
+
+        close();
+        return true;
+    }
+
+    public static List<Medikament> getAllMedikanete() throws Exception {
+        ArrayList<Medikament> medikamente = new ArrayList<>();
+        connect();
+        datenmenge = befehl.executeQuery("SELECT * FROM Medikament");
+
+        while(getNext()) {
+            String medikament_name = getMedikamentMedikament_Name("Medikament_Name");
+            String wirkstoff = getWirkstoff("Wirkstoff");
+            String kosten_pro_einheit = getMedikamentKosten_pro_Einheit("Kosten_pro_Einheit");
+        
+
+            Medikament medikament = new Medikament(Medikament_Name, Wirkstoff, Kosten_pro_Einheit);
+            medikamente.add(medikament);  
+    
+        }
+
+        close();
+        return medikamente;
+
+    }
+
+    public static Besitzer getMedikamentByMedikamentID(String medikamentID) throws Exception {
+        connect();
+        Medikament medikament = null;
+        String query = "SELECT * FROM Medikament WHERE MedikamentID = " + medikamentID;
+        datenmenge = befehl.executeQuery(query);
+
+        if (datenmenge.next()) {
+             String Medikament_Name = getMedikamentName);
+             String Wirkstoff = getWirkstoff();
+             String kosten_pro_einheit = getKosten_pro_Name();  
+        }
+
+        medikament = new Medikament(Medikament_Name, Wirkstoff, Kosten_pro_Einheit);
+    }
+    close();
+    return medikament;
+}
+
+public static boolean getNext() throws Exception {
+    if(datenmenge.next()) {
+        return true;
+    } else {
+        close();
+        return false;
+     }
+    }
+
+    public static int getMedikamentID() throws SQLException {
+        return datenmenge.getInt("MedikamentID");
+    }
+
+    public static String getMedikament_Name() throws Exception{
+        return datenmenge.getString("Medikament_Name");
+    }
+
+    public static String getWirkstoff() throws Exception{
+        return datenmenge.getString("Wirkstoff");
+    }
+    
+    public static int getKosten_pro_Einheit() throws Exception{
+        return datenmenge.getInt"Kosten_pro_Einheit");
+    }
+
+}

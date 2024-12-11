@@ -29,6 +29,10 @@ public class Besitzer {
         return besitzerID;
     }
 
+    public String getHausnummer(){
+        return hausnummer;
+    }
+
     public String getBesitzerNachname() {
         return besitzerNachname;
     }
